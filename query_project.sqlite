@@ -1,0 +1,90 @@
+/************************************************************
+Ryan Stevens
+restevens52@gmail.com
+
+get to know the all of the querying and ordering commands,
+using codecademy.com's New York Restaurant database.
+************************************************************/
+
+
+/*get to know the table, what are column names?*/
+SELECT * 
+FROM nomnom;
+/*ANS: name, neighborhood, cuisine, review, price, health*/
+
+/*What are the Distinct Neighborhoods*/
+SELECT DISTINCT neighborhood
+FROM nomnom;
+/*ANS: Brooklyn, Midtown, Chinatown, Uptown, Queens, Downtown*/
+
+/*What are the distinct cuisine types?*/
+SELECT DISTINCT cuisine
+FROM nomnom;
+/*ANS: Steak, Korean, Chinese, Pizza, Ethiopian, Vegetarian, 
+Italian, Japanese, American, Mediterranean, Indian, Soul Food,
+Mexican*/
+
+/*options for all Chinese Takeout*/
+SELECT *
+FROM nomnom
+WHERE cuisine = 'Chinese';
+/*ANS: maybe manually recording entire tables is not the best
+option here...*/
+
+/*Return all restraurants with review >= 4*/
+SELECT *
+FROM nomnom
+WHERE review >= 4;
+
+/*Return all restaurants with cuisine = 'Italian' and price '$$$'*/
+SELECT * 
+FROM nomnom
+WHERE cuisine = 'Italian' 
+AND price = '$$$';
+
+/*Return all restaurants with cuisine = 'Italian' and price >='$$$'*/
+SELECT *
+FROM nomnom
+WHERE cuisine = 'Italian'
+AND price LIKE '$$$%';
+
+/*Look for restaurant with "meatball" in name*/
+SELECT name
+FROM nomnom
+WHERE name LIKE '%meatball%';
+
+/*Find close spots in Midtown, Downtown, or Chinatown*/
+SELECT * 
+FROM nomnom
+WHERE neighborhood = 'Midtown' 
+OR neighborhood = 'Downtown'
+OR neighborhood = 'Chinatown'
+ORDER BY neighborhood;
+
+/*Find all health grade pending (NULL) restaurants*/
+SELECT * 
+FROM nomnom
+WHERE health IS NULL;
+
+/*Create a top 10 ranking based on reviews*/
+SELECT * 
+FROM nomnom 
+ORDER BY review DESC
+LIMIT 10;
+
+/*Use CASE to change rating system*/
+
+  SELECT name,
+   CASE
+     WHEN review > 4.5 THEN 'Extraordinary'
+    WHEN review > 4 THEN 'Excellent'
+     WHEN review > 3 THEN 'Good'
+     WHEN review > 2 THEN 'Fair'
+    Else 'Poor'
+  END AS 'Review'
+  FROM nomnom
+/*Interesting, SQL executes from L->R and T->B, so if 'fair'
+had been higher up it is the first condition filled, and the case
+ends there before evaluating case for 'Excellent'. Makes sense.
+the AS statement is just a pointer assigning a name, and is not a 
+new column in nomnom. it is temporary.*/
