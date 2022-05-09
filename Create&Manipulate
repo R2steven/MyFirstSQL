@@ -1,3 +1,13 @@
+/*
+Ryan Stevens
+restevens52@gmail.com
+
+Practice creating, updating, and manipulating a table in SQLite.
+
+*/
+
+
+
 CREATE TABLE friends (
   id INTEGER,
   name TEXT,
@@ -6,8 +16,8 @@ CREATE TABLE friends (
 
 INSERT INTO friends (id,name,birthday)
 VALUES (1,'Ororo Munroe', '1940-05-30'),
-(2,'John Acosta','1986-06-28'),
-(3,'George Teller','2000-02-29');
+  (2,'John Acosta','1986-06-28'),
+  (3,'George Teller','2000-02-29');
 
 UPDATE friends
 SET name = 'Storm'
