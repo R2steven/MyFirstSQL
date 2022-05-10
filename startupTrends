@@ -1,0 +1,91 @@
+/*************************************************************************
+Ryan Stevens
+restevens52@gmail.com
+
+work with the codecademy table 'startups', and practice using aggregate functions to pull and analyze data from silicon vally startups.
+*************************************************************************/
+
+
+/* Get to know the table!*//*
+  SELECT * 
+  FROM startups
+  ORDER BY raised DESC;
+
+/*find the total number of startup companies*//*
+  SELECT COUNT(*) AS '# of startups'
+  FROM startups;
+
+/*find the total valuation of all companies*//*
+  SELECT SUM(valuation) AS 'Total Value'
+  FROM startups;
+
+/*What is the highest amount raised by a staratup?*//*
+  SELECT raised
+  FROM startups
+  ORDER BY raised DESC
+  LIMIT 1;
+
+/*what is the highest amount raised by a startup? I forgot about the MAX function! duh!*//*
+  SELECT MAX(raised)
+  FROM startups;
+
+/*edit the query so that it returns the max money raised during the sees stage*//*
+  SELECT stage, MAX(raised)
+  FROM startups
+  WHERE stage = 'seed' COLLATE NOCASE;
+
+/*in what year was the oldest company founded?*//*
+  SELECT name, MIN(founded)
+  FROM startups
+
+/**Lets select for different sectors and find info about them. **/
+
+  /*Return the average valuation*//*
+  SELECT AVG(valuation)
+  FROM startups;
+
+  /*Return avg valuation grouped by category*//*
+  SELECT category, AVG(valuation)
+  FROM startups
+  GROUP BY category;
+
+  /*Return avg valuation, grouped by category, round to 2 decimal places.*//*
+  SELECT category, ROUND(AVG(valuation),2)
+  FROM startups
+  GROUP BY category;
+
+/*return avg val, grouped cat, rounded 2 dec, order desc*//*
+  SELECT category, ROUND(AVG(valuation),2)
+  FROM startups
+  GROUP BY 1
+  ORDER BY 2 DESC;
+
+/*Return the name of a category, and how many companies are in it*//*
+  SELECT name, category, COUNT(name) AS '# in cat'
+  FROM startups
+  GROUP BY category
+  ORDER BY 3 DESC;
+
+/*Same as last one, limit to categories with >3 companies in them*//*
+  SELECT name, category, COUNT(name) AS 'number'
+  FROM startups
+  GROUP BY category
+  HAVING number>3
+  ORDER BY 3 DESC;
+
+/*what is the avg size of a startup in each location? By employee or valuation.*//*
+  SELECT location, 
+  ROUND(AVG(employees),2) AS 'avgEmployees', 
+  ROUND(AVG(valuation),2) AS 'avgValuation'
+  FROM startups
+  GROUP BY location
+  ORDER BY 2 DESC;
+
+/*what is the avg size of startup in location, with avg sizes above 500?*//*
+  SELECT location,
+  ROUND(AVG(employees),2) AS 'avgEmployees'
+  FROM startups
+  GROUP BY location
+  HAVING avgEmployees > 500
+  ORDER BY 2 DESC;
+*/
