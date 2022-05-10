@@ -9,3 +9,7 @@ CreateAndManipulate:
 query_project:
   get to know the all of the querying and ordering commands,
   using codecademy.com's New York Restaurant table named nomnom.
+  
+startupTrends:
+work with the codecademy table 'startups', and practice using aggregate 
+functions to pull and analyze data from silicon vally startups.
