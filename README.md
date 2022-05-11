@@ -17,3 +17,6 @@ functions to pull and analyze data from silicon vally startups.
 AnalyzeHackerNews:
 Use the publically available data from the Hacker News forum from 
 Y Combinator to get some real world data analysis practice.
+
+Multiple_tables:
+practice what we learned about joins by combining rows from different tables. Use some data from a comany like lyft, given three tables
