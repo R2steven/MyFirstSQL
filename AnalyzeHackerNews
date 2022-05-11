@@ -1,0 +1,86 @@
+ /************************************************************************
+Ryan Stevens
+restevens52@gmail.com
+
+Use the publically available data from the Hacker News forum from Y Combinator to get some real world data analysis practice.
+*************************************************************************/
+
+/*Get a feel for the table and data*//*
+  SELECT title, score, url
+  FROM hacker_news
+  ORDER BY score DESC
+  LIMIT 5;
+
+/*Test Hacker news for the percentage use per user (1-9-90 Rule)*//*
+  SELECT SUM(score)
+  from hacker_news;
+
+/*Find users with >200 combined scores*//*
+  SELECT user, SUM(score)
+  FROM hacker_news
+  GROUP BY user
+  HAVING SUM(score) > 200
+  ORDER BY 2 DESC;
+
+/*Determine their percent score contribution*//*
+  SELECT (517+309+304+282)/6366.0
+/*these magic numbers come from the previous querys. I'm not sure why I can't figure out how to group by user, sum up their points, then divide by the total to get the percent, but the WITH command wasn't working in the codecademy thing. In fact, I couldnt even create a table named UserPoints, but I could create a table named table_name with the exact same Query. It seems like the codecademy only supports tables and pointers with certain names I guess. Either that or its user error. Who could say? I did attempt to do this in a less heuristic way at least*/
+
+
+/*find users who have been rickrolling, posting links with a certain url.*//*
+SELECT user , COUNT(*) AS '#_Posts'
+  FROM hacker_news
+   WHERE url LIKE '%watch?v=dQw4w9WgXcQ%'
+   GROUP BY user;
+
+/*group which websites feed Hacker News the most*//*
+SELECT CASE
+    WHEN url LIKE '%github%' THEN 'GitHub'
+    WHEN url LIKE '%medium.com%' THEN 'Medium'
+    WHEN url LIKE '%nytimes.com%' THEN 'New York Times'
+    ELSE 'Other'
+  END AS 'Source'
+FROM hacker_news;
+
+/*add col for # of stories from each url*//*
+SELECT CASE
+    WHEN url LIKE '%github.com%' THEN 'GitHub'
+    WHEN url LIKE '%medium.com%' THEN 'Medium'
+    WHEN url LIKE '%nytimes.com%' THEN 'New York Times'
+    ELSE 'Other'
+  END AS 'Source',
+  COUNT(*)
+FROM hacker_news
+GROUP BY 1;
+
+/*look at the format of the timestamp*//*
+SELECT timestamp
+FROM hacker_news
+LIMIT 10;
+
+/*test out the strftime() function*//*
+SELECT timestamp, strftime('%H', timestamp)
+FROM hacker_news
+GROUP BY 1
+LIMIT 20;
+
+/*write query that returns three cols: HH of timestamp, avg score per hour, count of stories each hour*//*
+SELECT strftime('%H', timestamp), AVG(score), COUNT(*)
+FROM hacker_news
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/*from previous query round avd scores, rename col, add a where to filter out null timestamp*//*
+SELECT  strftime('%H', timestamp) As 'Time', 
+        ROUND(AVG(score),2) AS 'avg_Score',
+        COUNT(*) AS '# of posts'
+FROM hacker_news
+WHERE 1 IS NOT NULL
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+
+
+
+
