@@ -13,3 +13,7 @@ query_project:
 startupTrends:
 work with the codecademy table 'startups', and practice using aggregate 
 functions to pull and analyze data from silicon vally startups.
+
+AnalyzeHackerNews:
+Use the publically available data from the Hacker News forum from 
+Y Combinator to get some real world data analysis practice.
